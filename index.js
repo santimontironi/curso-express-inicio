@@ -35,7 +35,7 @@ app.use((req,res,next) => {
 })
 
 app.use((req,res,next) => {
-    if(req.query.name = "santiago"){
+    if(req.query.name == "santiago"){
         next()
     }
     else(
