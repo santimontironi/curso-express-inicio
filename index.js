@@ -20,7 +20,7 @@ app.get('/numbers/:x/:y',(req,res) => {
     const num2 = parseInt(req.params.y)
 
     const suma = num1 + num2
-+
+
     console.log(suma)
 
     console.log(req.query.pepe)
@@ -32,6 +32,19 @@ app.get('/numbers/:x/:y',(req,res) => {
 app.use((req,res,next) => {
     console.log("pasa por acá")
     next()
+})
+
+app.use((req,res,next) => {
+    if(req.query.name = "santiago"){
+        next()
+    }
+    else(
+        res.send("No autorizado")
+    )
+})
+
+app.get('/dashboard',(req,res) => {
+    res.send("Dashboard")
 })
 
 app.get('/profile',(req,res) => {
