@@ -6,6 +6,18 @@ const app = express()
 app.use(express.text())
 app.use(express.json())
 
+//settings
+app.set('port',3000)
+
+//middleWare con morgan
+app.use(morgan('dev'))
+
+//middleWare
+app.use((req,res,next) => {
+    console.log("pasa por acá")
+    next()
+})
+
 app.post('/user',(req,res) => {
     console.log(req.body)
     res.send("enviando un usuario")
@@ -29,12 +41,6 @@ app.get('/numbers/:x/:y',(req,res) => {
     res.send(`El resultado de la suma es ${suma}`)
 })
 
-//middleWare
-app.use((req,res,next) => {
-    console.log("pasa por acá")
-    next()
-})
-
 app.use((req,res,next) => {
     if(req.query.name == "santiago"){
         next()
@@ -43,9 +49,6 @@ app.use((req,res,next) => {
         res.send("No autorizado")
     )
 })
-
-//middleWare con morgan
-app.use(morgan('dev'))
 
 app.get('/dashboard',(req,res) => {
     res.send("Dashboard")
@@ -57,4 +60,6 @@ app.get('/profile',(req,res) => {
 
 app.listen(3000)
 
-console.log("Corriendo en el puerto 3000")
+const port = app.get('port')
+
+console.log(`Corriendo en el puerto ${port}`)
