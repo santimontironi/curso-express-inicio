@@ -3,6 +3,9 @@ const morgan = require('morgan')
 
 const app = express()
 
+//middleware para los archivos public
+app.use(express.static('./public'))
+
 app.use(express.text())
 app.use(express.json())
 
@@ -16,6 +19,10 @@ app.use(morgan('dev'))
 app.use((req,res,next) => {
     console.log("pasa por acá")
     next()
+})
+
+app.get('/',(req,res) => {
+    res.send("Hello world")
 })
 
 app.post('/user',(req,res) => {
@@ -58,8 +65,8 @@ app.get('/profile',(req,res) => {
     res.send("Profile")
 })
 
-app.listen(3000)
-
 const port = app.get('port')
+
+app.listen(port)
 
 console.log(`Corriendo en el puerto ${port}`)
